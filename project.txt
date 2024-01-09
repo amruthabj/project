@@ -1,0 +1,88 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
+class Expense {
+    private String category;
+    private double amount;
+
+    public Expense(String category, double amount) {
+        this.category = category;
+        this.amount = amount;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+}
+
+class ExpenseTracker {
+    private Map<String, List<Expense>> expenses;
+
+    public ExpenseTracker() {
+        this.expenses = new HashMap<>();
+    }
+
+    public void addExpense(String category, double amount) {
+        Expense expense = new Expense(category, amount);
+        expenses.computeIfAbsent(category, k -> new ArrayList<>()).add(expense);
+        System.out.println("Expense added successfully!");
+    }
+
+    public void generateReport() {
+        System.out.println("Expense Report:");
+        for (Map.Entry<String, List<Expense>> entry : expenses.entrySet()) {
+            String category = entry.getKey();
+            List<Expense> categoryExpenses = entry.getValue();
+
+            double totalAmount = categoryExpenses.stream().mapToDouble(Expense::getAmount).sum();
+
+            System.out.println(category + ": $" + totalAmount);
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        ExpenseTracker expenseTracker = new ExpenseTracker();
+
+        while (true) {
+            System.out.println("\nExpense Tracker Menu:");
+            System.out.println("1. Add Expense");
+            System.out.println("2. Generate Expense Report");
+            System.out.println("3. Exit");
+            System.out.print("Choose an option: ");
+
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter expense category: ");
+                    String category = scanner.next();
+                    System.out.print("Enter expense amount: $");
+                    double amount = scanner.nextDouble();
+                    expenseTracker.addExpense(category, amount);
+                    break;
+
+                case 2:
+                    expenseTracker.generateReport();
+                    break;
+
+                case 3:
+                    System.out.println("Exiting Expense Tracker. Goodbye!");
+                    System.exit(0);
+                    break;
+
+                default:
+                    System.out.println("Invalid option. Please choose a valid option.");
+            }
+        }
+    }
+}
