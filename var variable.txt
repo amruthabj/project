@@ -1,0 +1,4 @@
+void main{
+  var myage=35;
+  print(myage);
+}

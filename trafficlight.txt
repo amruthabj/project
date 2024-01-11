@@ -1,0 +1,113 @@
+public class Main {
+
+    private enum TrafficLightState { GREEN, YELLOW, RED }
+
+
+    private TrafficLightState currentState;
+
+
+    public Main() {
+
+        currentState = TrafficLightState.GREEN;
+
+    }
+
+
+    public void startTraffic() {
+
+        while (true) {
+
+            displayState();
+
+            sleepForDuration(currentState);
+
+            nextState();
+
+        }
+
+    }
+
+
+    private void nextState() {
+
+        switch (currentState) {
+
+            case GREEN:
+
+                currentState = TrafficLightState.YELLOW;
+
+                break;
+
+            case YELLOW:
+
+                currentState = TrafficLightState.RED;
+
+                break;
+
+            case RED:
+
+                currentState = TrafficLightState.GREEN;
+
+                break;
+
+        }
+
+    }
+
+
+    private void displayState() {
+
+        System.out.println("Traffic Light: " + currentState);
+
+    }
+
+
+    private void sleepForDuration(TrafficLightState state) {
+
+        try {
+
+            Thread.sleep(getDurationForState(state));
+
+        } catch (InterruptedException e) {
+
+            e.printStackTrace();
+
+        }
+
+    }
+
+
+    private int getDurationForState(TrafficLightState state) {
+
+        switch (state) {
+
+            case GREEN:
+
+                return 5000; // 5 seconds
+
+            case YELLOW:
+
+                return 2000; // 2 seconds
+
+            case RED:
+
+                return 5000; // 5 seconds
+
+            default:
+
+                return 0;
+
+        }
+
+    }
+
+
+    public static void main(String[] args) {
+
+        Main controller = new Main();
+
+        controller.startTraffic();
+
+    }
+
+}
