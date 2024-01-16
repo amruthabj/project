@@ -1,0 +1,40 @@
+import 'dart:io';
+
+void main() {
+  print("Enter a word: ");
+  String input = stdin.readLineSync()!;
+  int length = input.length;
+
+  if (length >= 1) {
+    if (isValidWord(input)) {
+      if (isPalindrome(input)) {
+        print(" is a palindrome.");
+      } else {
+        print(" is not a palindrome.");
+      }
+    } else {
+      print("Invalid input");
+    }
+  } else {
+    print("Invalid input");
+  }
+}
+
+bool isValidWord(String str) {
+  return str.contains(RegExp(r"^[a-zA-Z]+$"));
+}
+
+bool isPalindrome(String str) {
+  str = str.toLowerCase();
+  int start = 0;
+  int end = str.length - 1;
+
+  while (start < end) {
+    if (str[start] != str[end]) {
+      return false;
+    }
+    start++;
+    end--;
+  }
+  return true;
+}
