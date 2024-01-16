@@ -1,0 +1,46 @@
+import 'dart:io';
+
+void main() {
+  var ch;
+
+  do {
+    print(" 1.addition\n2.subtraction \n3.multiplication \n4.division\n Enter your choice (Enter 0 to exit): ");
+    ch = int.parse(stdin.readLineSync()!);
+
+    if (ch == 0) {
+      print("Exiting the calculator program. Goodbye!");
+      break;
+    }
+
+    print("Enter the 1st number: ");
+    var a = int.parse(stdin.readLineSync()!);
+
+    print("Enter the 2nd number: ");
+    var b = int.parse(stdin.readLineSync()!);
+
+    if (ch == 1) {
+      var c = a + b;
+      print("Sum: $c");
+    }
+    else if (ch == 2) {
+      var c = a - b;
+      print("Difference: $c");
+    } 
+    else if (ch == 3) {
+      var c = a * b;
+      print("Multiplication: $c");
+    } 
+    else if (ch == 4) {
+      if (b != 0) {
+        double c = a / b;
+        print("Quotient: $c");
+      } 
+      else {
+        print("Cannot divide by zero. Please enter a non-zero divisor.");
+      }
+    } 
+    else {
+      print("Invalid choice. Please enter a number between 0 and 4.");
+    }
+  } while (ch != 0);
+}
